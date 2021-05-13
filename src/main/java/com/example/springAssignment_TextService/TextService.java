@@ -10,11 +10,17 @@ import java.util.Locale;
 public class TextService {
 
     @GetMapping("/camelize")
-    public String stringCamelCase(@RequestParam String original){
+    public String stringCamelCase(@RequestParam String original, @RequestParam(required=false) boolean initialCap){
         String[] newStrings=  original.split("_");
-        String camelCaseWord = newStrings[0];
+        String camelCaseWord = "";
+        if(!initialCap) {
+            camelCaseWord = newStrings[0];
+        }else {
+            camelCaseWord = newStrings[0].substring(0,1).toUpperCase() + newStrings[0].substring(1);
+        }
+
         for (int i = 1; i < newStrings.length; i++) {
-             camelCaseWord += (newStrings[i].substring(0,1).toUpperCase() + newStrings[i].substring(1));
+            camelCaseWord += (newStrings[i].substring(0,1).toUpperCase() + newStrings[i].substring(1));
         }
 
         return camelCaseWord;

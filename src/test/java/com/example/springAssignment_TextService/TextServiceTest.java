@@ -22,4 +22,12 @@ public class TextServiceTest {
                 .andExpect(content().string("thisIsAThing"));
 
     }
+
+    @Test
+    public void stringCamelizeWithInitialCap() throws Exception{
+        RequestBuilder request=get("/camelize?original=this_is_a_thing&initialCap=true");
+        this.mvc.perform(request).andExpect(status().isOk())
+                .andExpect(content().string("ThisIsAThing"));
+
+    }
 }
