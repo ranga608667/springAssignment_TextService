@@ -7,6 +7,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.RequestBuilder;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -45,5 +46,15 @@ public class TextServiceTest {
         this.mvc.perform(request).andExpect(status().isOk())
                 .andExpect(content().string("A ****** of this and a ****** of that"));
 
+    }
+
+    @Test
+    public void testEncode() throws Exception{
+        RequestBuilder request = post("/encode")
+                .param("message","a little of this and a little of that")
+                .param("key", "mcxrstunopqabyzdefghijklvw");
+
+        this.mvc.perform(request).andExpect(status().isOk())
+                .andExpect(content().string("m aohhas zt hnog myr m aohhas zt hnmh"));
     }
 }

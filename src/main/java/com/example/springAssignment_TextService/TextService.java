@@ -1,12 +1,11 @@
 package com.example.springAssignment_TextService;
 
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Locale;
+import java.util.*;
 
 @RestController
 public class TextService {
@@ -50,4 +49,24 @@ public class TextService {
         return redactedString;
     }
 
+    @PostMapping("/encode")
+    public String encode(@RequestParam Map<String, String> formData) {
+        String key = formData.get("key");
+        String message = formData.get("message");
+        Map<Character, Character> alphabet = new HashMap<>();
+        String oldAlphabet = "abcdefghijklmnopqrstuvwzyz";
+        for(int i = 0; i < oldAlphabet.length(); i++) {
+            alphabet.put(oldAlphabet.charAt(i), key.charAt(i));
+        }
+        String encodedMessage = "";
+        for(int i = 0; i < message.length(); i++) {
+            if (message.charAt(i) == ' ') {
+                encodedMessage += ' ';
+            }else {
+                char encode = alphabet.get(message.charAt(i));
+                encodedMessage += encode;
+            }
+        }
+        return encodedMessage;
+    }
 }
