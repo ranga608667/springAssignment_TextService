@@ -4,6 +4,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Locale;
 
 @RestController
@@ -25,4 +27,27 @@ public class TextService {
 
         return camelCaseWord;
     }
+
+
+    @GetMapping("/redact")
+    public String stringRedact(@RequestParam String original, @RequestParam List<String> badWord) {
+        List<Integer>wordLength=new ArrayList<>();
+        List<String> newWord=new ArrayList<>();
+        String redactedString = original;
+        for (int i=0;i<badWord.size();i++) {
+            wordLength.add(badWord.get(i).length());
+        }
+        for (int j=0;j<wordLength.size();j++) {
+            String aRep="";
+            for(int k=1;k<=wordLength.get(j);k++){
+                aRep=aRep + "*";
+            }
+            newWord.add(aRep);
+        }
+        for (int l=0;l<badWord.size();l++) {
+            redactedString = redactedString.replaceAll(badWord.get(l), newWord.get(l));
+        }
+        return redactedString;
+    }
+
 }
