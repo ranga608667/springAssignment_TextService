@@ -22,4 +22,28 @@ public class TextServiceTest {
                 .andExpect(content().string("thisIsAThing"));
 
     }
+
+    @Test
+    public void stringCamelizeWithInitialCap() throws Exception{
+        RequestBuilder request=get("/camelize?original=this_is_a_thing&initialCap=true");
+        this.mvc.perform(request).andExpect(status().isOk())
+                .andExpect(content().string("ThisIsAThing"));
+
+    }
+
+    @Test
+    public void stringRedact() throws Exception{
+        RequestBuilder request=get("/redact?original=A little of this and a little of that&badWord=little&badWord=this");
+        this.mvc.perform(request).andExpect(status().isOk())
+                .andExpect(content().string("A ****** of **** and a ****** of that"));
+
+    }
+
+    @Test
+    public void stringRedactOneWord() throws Exception{
+        RequestBuilder request=get("/redact?original=A little of this and a little of that&badWord=little");
+        this.mvc.perform(request).andExpect(status().isOk())
+                .andExpect(content().string("A ****** of this and a ****** of that"));
+
+    }
 }
