@@ -57,5 +57,15 @@ public class TextServiceTest {
         this.mvc.perform(request).andExpect(status().isOk())
                 .andExpect(content().string("m aohhas zt hnog myr m aohhas zt hnmh"));
     }
+
+    @Test
+    public void testSed() throws Exception{
+        RequestBuilder request = post("/s/little/lot")
+                .param("meassage", "a little of this and a little of that");
+        this.mvc.perform(request).andExpect(status().isOk());
+
+
+    }
+
 }
 
