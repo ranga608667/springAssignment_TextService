@@ -11,6 +11,7 @@ import java.util.Map;
 @RestController
 public class TextService {
 
+    //Test 1
     @GetMapping("/camelize")
     public String stringCamelCase(@RequestParam String original,@RequestParam (required = false) boolean initialCap){
         String[] newStrings=  original.split("_");
@@ -26,7 +27,7 @@ public class TextService {
 
         return camelCaseWord;
     }
-
+    //Test 2
     @GetMapping("/redact")
     public String stringRedact(@RequestParam String original, @RequestParam List<String> badWord){
         List<Integer>wordLength=new ArrayList<>();
@@ -49,7 +50,7 @@ public class TextService {
         }
         return redactedString;
     }
-
+    //Test 3
     @PostMapping("/encode")
     public String encode(@RequestParam Map<String, String> formData) {
         String key = formData.get("key");
@@ -96,7 +97,7 @@ public class TextService {
 //        }
 //        return encodedMsg;
 //    }
-
+    //Test 4
     @PostMapping("/s/{find}/{replace}")
     public String stringSed(@PathVariable String find,
                           @PathVariable String replace,
