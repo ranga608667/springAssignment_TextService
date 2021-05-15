@@ -61,8 +61,11 @@ public class TextServiceTest {
     @Test
     public void testSed() throws Exception{
         RequestBuilder request = post("/s/little/lot")
-                .param("meassage", "a little of this and a little of that");
-        this.mvc.perform(request).andExpect(status().isOk());
+                .param("find","little")
+                .param("replace","lot")
+                .param("message", "a little of this and a little of that");
+        this.mvc.perform(request).andExpect(status().isOk())
+                .andExpect(content().string("a lot of this and a lot of that"));
 
 
     }

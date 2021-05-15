@@ -69,11 +69,12 @@ public class TextService {
         }
         return encodedMessage;
     }
-    @PostMapping("/s")
-    public String sed(@RequestParam String find,@RequestParam String replace ,@RequestParam Map<String, String> formData){
+    @PostMapping("/s/little/lot")
+    public String sed(@RequestParam Map<String, String> formData){
         String message = formData.get("message");
+        String find =formData.get("find");
+        String replace =formData.get("replace");
 
-        message.replaceAll(find, replace);
-        return message;
+        return message.replaceAll(find, replace);
     }
 }
